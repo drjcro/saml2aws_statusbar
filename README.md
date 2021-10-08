@@ -1,6 +1,8 @@
 # Saml2aws timer
 A little statusbar that shows you how long until saml2aws credentials will expire 
 
+![Example](./pics/pic01.png)
+
 # Install requirements for app
 ```bash
 $ pip install -r ./requirements.txt
