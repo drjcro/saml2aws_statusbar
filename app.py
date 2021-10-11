@@ -150,8 +150,17 @@ class App(rumps.App):
 
     @rumps.clicked("Run saml2aws")
     def run_terminal(self, _):
-        """Start terminal with saml2login command"""
+        """Clear saml section and start terminal with saml2login command"""
         logs.debug("Run saml2login")
+        p = configparser.ConfigParser()
+        logs.debug("clear section")
+        with open(AWS_CREDENTIALS, 'r+') as s:
+            p.read_file(s)  # File position changed (it's at the end of the file)
+            p.remove_section('saml')
+            s.seek(0)  # <-- Change the file position to the beginning of the file
+            p.write(s)
+            s.truncate()  # <-- Truncate remaining content after the written position.
+        logs.debug("run terminal")
         os.system("alacritty -e saml2aws login")
 
     @rumps.clicked("Copy creds to JH")
